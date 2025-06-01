@@ -1,0 +1,168 @@
+/* Container Layout */
+.container.savings-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Card Design */
+.shadow {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Design */
+.form-card h3 {
+  margin-bottom: 1rem;
+  color: #4a4a4a;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #6a11cb;
+  outline: none;
+}
+
+.btn-group {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(45deg, #28a745, #45d345);
+  color: white;
+}
+
+.btn-secondary {
+  background: #ccc;
+  color: #333;
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 2px solid #2575fc;
+  color: #2575fc;
+}
+
+.btn-outline-primary:hover {
+  background: #2575fc;
+  color: white;
+}
+
+.btn-outline-danger {
+  background: transparent;
+  border: 2px solid #f44336;
+  color: #f44336;
+}
+
+.btn-outline-danger:hover {
+  background: #f44336;
+  color: white;
+}
+
+/* Savings List */
+.list-card h3 {
+  margin-bottom: 1rem;
+  color: #4a4a4a;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+.savings-list {
+  list-style: none;
+  padding: 0;
+}
+
+.saving-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.saving-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.saving-item h4 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.saving-item p {
+  margin: 0;
+  color: #666;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .saving-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .action-buttons {
+    margin-top: 0.5rem;
+  }
+}

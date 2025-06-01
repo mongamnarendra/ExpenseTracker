@@ -1,0 +1,77 @@
+<div class="container savings-container">
+  <h2 class="title">My Savings</h2>
+
+  <!-- Add / Edit Form -->
+  <div class="form-card shadow">
+    <h3>{{ isEditMode ? 'Update Saving' : 'Add New Saving' }}</h3>
+    <div class="form-group">
+      <label for="savingName">Name</label>
+      <input
+        id="savingName"
+        type="text"
+        [(ngModel)]="currentSaving.name"
+        placeholder="Enter saving name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="savingAmount">Amount (₹)</label>
+      <input
+        id="savingAmount"
+        type="number"
+        [(ngModel)]="currentSaving.amount"
+        placeholder="Enter amount"
+        min="0"
+        required
+      />
+    </div>
+
+    <div class="btn-group">
+      <button
+        class="btn btn-primary"
+        *ngIf="!isEditMode"
+        (click)="addSaving()"
+      >
+        Add Saving
+      </button>
+      <button
+        class="btn btn-success"
+        *ngIf="isEditMode"
+        (click)="updateSaving()"
+      >
+        Update Saving
+      </button>
+      <button
+        class="btn btn-secondary"
+        *ngIf="isEditMode"
+        (click)="cancelEdit()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- Savings List -->
+  <div class="list-card shadow">
+    <h3>Saved Amounts</h3>
+    <div *ngIf="savingsList.length === 0" class="empty-msg">
+      No savings added yet. Start by adding your first saving!
+    </div>
+    <ul class="savings-list">
+      <li *ngFor="let saving of savingsList; let i = index" class="saving-item">
+        <div>
+          <h4>{{ saving.name }}</h4>
+          <p>₹ {{ saving.amount | number:'1.2-2' }}</p>
+        </div>
+        <div class="action-buttons">
+          <button class="btn btn-outline-primary" (click)="editSaving(i)">
+            Edit
+          </button>
+          <button class="btn btn-outline-danger" (click)="deleteSaving(i)">
+            Delete
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

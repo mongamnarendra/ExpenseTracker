@@ -1,0 +1,47 @@
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div class="sidebar p-3 d-flex flex-column flex-md-column justify-content-between" id="sidebar">
+    <div class="profile mb-4 d-none d-md-block" *ngIf="user">
+      <img [src]="user.photoURL" alt="Profile Image">
+      <h5 class="mt-2 text-grey">{{user.displayName}}</h5>
+    </div>
+
+    <ul class="nav nav-pills flex-column flex-md-column flex-sm-row mb-auto">
+      <li class="nav-item">
+        <a routerLink="/home/dashboard" class="nav-link text-white">
+          <i class="fa-solid fa-house"></i> <span class="ms-2">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home/history" class="nav-link text-white">
+          <i class="fas fa-history"></i> <span class="ms-2">History</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home/reports" class="nav-link text-white">
+          <i class="fas fa-chart-line"></i> <span class="ms-2">Reports</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/home/savings" class="nav-link text-white">
+          <i class="fas fa-user"></i> <span class="ms-2">Savings</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link text-white" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> <span class="ms-2">Logout</span>
+        </a>
+      </li>
+    </ul>
+
+    <!-- Profile Image for Mobile -->
+    <div class="profile d-md-none" *ngIf="user">
+      <img [src]="user.photoURL" alt="Profile Image">
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content flex-grow-1 p-3">
+    <!-- Your dashboard and other content goes here -->
+  </div>
+</div>

@@ -1,0 +1,62 @@
+.history-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.search-bar {
+  margin-bottom: 1rem;
+}
+
+.search-bar input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.table {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.table th, .table td {
+  vertical-align: middle;
+}
+
+h3 {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar input {
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+
+  .search-bar button {
+    width: 100%;
+  }
+}
+
+@media print {
+  .btn, .sidebar, .navbar, .footer {
+    display: none !important;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th, td {
+    padding: 8px;
+  }
+}

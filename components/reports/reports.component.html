@@ -1,0 +1,14 @@
+<div class="bg-gradient p-4 rounded shadow-sm text-center mb-4" style="background: linear-gradient(135deg, #673AB7, #3F51B5); color: #000;">
+  <h1 class="display-6 fw-bold mb-2">Expense Reports</h1>
+  <p class="lead mb-0">Visualize your spending by categories and track your balance.</p>
+</div>
+
+<div class="p-3 border rounded">
+  <h5 class="text-center mb-4">Expense Categories Breakdown</h5>
+  <canvas baseChart
+          [data]="categoryChartData"
+          [type]="categoryChartType"
+          [options]="categoryChartOptions"
+          class="w-100"
+          style="max-height: 400px;"></canvas>
+</div>

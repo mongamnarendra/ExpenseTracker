@@ -1,0 +1,149 @@
+<div class="bg-gradient p-1 rounded shadow-sm text-center text-black mb-4"
+  style="background: linear-gradient(45deg, #6a11cb, #2575fc);">
+  <h1 class="display-5 fw-bold mb-2">Hello, {{user?.displayName}}</h1>
+  <p class="lead mb-0">Welcome to your personal finance dashboard.</p>
+</div>
+
+<div *ngIf="isBudgetExceed">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ alertMessage }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+
+<div class="alert alert-success text-center shadow-lg p-2 rounded">
+  <h5 class="mb-0">Your Current Balance is <span class="fw-bold fs-4">{{ remainingBudget | currency:'INR' }}</span></h5>
+</div>
+
+<div class="row g-3">
+  <!-- Pie Chart & Add Expense -->
+  <div class="col-12 col-md-4">
+    <div class="p-3 border rounded">
+      <h5>Balance Overview</h5>
+      <canvas baseChart [data]="pieChartData" [type]="pieChartType"
+        *ngIf="pieChartData.datasets[0].data[0]!=0 || pieChartData.datasets[0].data[0]!=0"></canvas>
+
+      <!-- Trigger Button for Modal -->
+      <button class="btn btn-primary mt-3 w-100" data-bs-toggle="modal" data-bs-target="#addExpenseModal" style="background: linear-gradient(45deg, #6a11cb, #2575fc);">
+        Add Expense
+      </button>
+    </div>
+  </div>
+
+  <!-- Budget and Transactions -->
+  <div class="col-12 col-md-8">
+    <div class="p-3 border rounded">
+      <!-- Budget Section -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Monthly Budget</h5>
+
+          <h3 class="fw-bold mb-3" *ngIf="monthlyBudget; else noBudget">
+            {{ monthlyBudget | currency:'INR' }}
+          </h3>
+          <ng-template #noBudget>
+            <p class="text-muted">No budget set yet</p>
+          </ng-template>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">{{ " " | currency:'INR'}}</span>
+            <input type="number" class="form-control" placeholder="Enter budget" [(ngModel)]="monthlyBudget">
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button *ngIf="isMonthlyBudgetSet" class="btn btn-success" style="background: linear-gradient(45deg, #6a11cb, #2575fc);">Update</button>
+            <button *ngIf="!isMonthlyBudgetSet" class="btn btn-primary" (click)="setBudget()" style="background: linear-gradient(45deg, #6a11cb, #2575fc);">Set Budget</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transactions Section -->
+      <div>
+        <h5 class="mb-3">Recent Transactions</h5>
+        <table class="table table-striped" style="overflow: auto;">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tx of recentTransactions">
+              <td>{{tx.date}}</td>
+              <td>{{tx.description}}</td>
+              <td [class.text-danger]="tx.type === 'Debited'" [class.text-success]="tx.type === 'Credited'">
+                {{tx.type === 'Debited' ? '-' : '+'}}{{tx.amount | currency:'INR'}}
+              </td>
+              <td>{{tx.type | titlecase}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Expense Modal -->
+<div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="addExpenseModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="addExpenseModalLabel">Add New Expense</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form #expenseForm="ngForm">
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" id="description" class="form-control" [(ngModel)]="newExpense.description"
+              name="description" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" id="amount" class="form-control" [(ngModel)]="newExpense.amount" name="amount"
+              required>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select id="category" class="form-select" [(ngModel)]="newExpense.category" name="category" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="Food">Food</option>
+              <option value="Travel">Travel</option>
+              <option value="Clothes">Clothes</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Rents">Rents</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Type</label>
+            <select id="category" class="form-select" [(ngModel)]="newExpense.type" name="category" required>
+              <option value="" disabled selected>Select a type</option>
+              <option value="Debited">Debited</option>
+              <option value="Credited">Credited</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" id="date" class="form-control" [(ngModel)]="newExpense.date" name="date" required>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="saveExpense()">Save Expense</button>
+      </div>
+
+    </div>
+  </div>
+</div>
